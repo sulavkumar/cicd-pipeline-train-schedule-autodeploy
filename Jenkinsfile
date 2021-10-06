@@ -13,9 +13,7 @@ pipeline {
             }
         }
         stage('Build Docker Image') {
-            when {
-                branch 'sulav-docker-update'
-            }
+         
             steps {
                 script {
                     app = docker.build(DOCKER_IMAGE_NAME)
@@ -26,9 +24,7 @@ pipeline {
             }
         }
         stage('Push Docker Image') {
-            when {
-                branch 'sulav-docker-update'
-            }
+       
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_login') {
@@ -39,9 +35,7 @@ pipeline {
             }
         }
         stage('CanaryDeploy') {
-            when {
-                branch 'sulav-docker-update'
-            }
+            
             environment { 
                 CANARY_REPLICAS = 1
             }
@@ -54,9 +48,7 @@ pipeline {
             }
         }
         stage('DeployToProduction') {
-            when {
-                branch 'sulav-docker-update'
-            }
+            
             environment { 
                 CANARY_REPLICAS = 0
             }
