@@ -4,7 +4,12 @@ pipeline {
         //be sure to replace "bhavukm" with your own Docker Hub username
         DOCKER_IMAGE_NAME = "sulavkumar/train-schedule"
     }
+     
     stages {
+        stage('Initialize'){
+        def dockerHome = tool 'myDocker'
+        env.PATH = "${dockerHome}/bin:${env.PATH}"
+           }
         stage('Build') {
             steps {
                 echo 'Running build automation'
